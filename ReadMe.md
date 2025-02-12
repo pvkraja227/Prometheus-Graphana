@@ -1,9 +1,21 @@
 https://www.youtube.com/watch?v=DuYnPOq4D6w&list=PLdsu0umqbb8NxUs8r8BIUe9-PhcoZyojA
 
+https://www.fosstechnix.com/install-prometheus-and-grafana-on-ubuntu/
+
 EC2 / 
 
-sudo nano /etc/systemd/system/prometheus.service (add the below)
+sudo nano /etc/systemd/system/prometheus.service // sudo vi /etc/systemd/system/prometheus.service (add the below last line)
 
+[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \
     --config.file /etc/prometheus/prometheus.yml \
     --storage.tsdb.path /var/lib/prometheus/ \
     --web.console.templates=/etc/prometheus/consoles \
@@ -11,8 +23,11 @@ sudo nano /etc/systemd/system/prometheus.service (add the below)
     --web.listen-address=0.0.0.0:9090
 Restart=always
 RestartSec=10s
+    
+[Install]
+WantedBy=multi-user.target
 
-cntrl O and cntrl x
+:wq! (save)
 
 sudo nano node_exporter.service // sudo vi node_exporter.service
 
