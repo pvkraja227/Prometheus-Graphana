@@ -9,7 +9,6 @@ sudo nano /etc/systemd/system/prometheus.service (add the below)
     --web.console.templates=/etc/prometheus/consoles \
     --web.console.libraries=/etc/prometheus/console_libraries
     --web.listen-address=0.0.0.0:9090
-
 Restart=always
 RestartSec=10s
 
